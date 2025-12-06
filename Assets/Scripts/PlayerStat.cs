@@ -113,4 +113,12 @@ public class PlayerStat : MonoBehaviour
         hadGilet = !hadGilet;
         Debug.Log("Player gilet status: " + hadGilet);
     }
+
+    public void ResetStat()
+    {
+        health += maxHealth * 0.25f;
+        curStamina = maxStamina;
+        curBattery = maxBattery;
+        hadGilet = false;
+    }
 }
