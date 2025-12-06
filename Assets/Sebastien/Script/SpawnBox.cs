@@ -8,6 +8,9 @@ public class SpawnBox : MonoBehaviour
     [SerializeField] private GameObject[] boxesPrefabs;
     public Dictionary<Transform, bool> spawnPoints = new Dictionary<Transform, bool>();
 
+    public OVRGrabber rightHand;
+    public OVRGrabber leftHand;
+
     void Awake()
     {
         // Sécurité si plusieurs instances existent
@@ -51,22 +54,19 @@ public void UpdateSpawnBox()
 {
     List<Transform> pointsToSpawn = new List<Transform>();
 
-    // 1. On parcourt le dictionnaire SANS le modifier
     foreach (var entry in spawnPoints)
     {
         Transform point = entry.Key;
 
-        // Vérification sécurité
         if (point == null)
             continue;
 
-        if (!entry.Value) // Si libre
+        if (!entry.Value)
         {
-            pointsToSpawn.Add(point); // On l'ajoute à la liste
+            pointsToSpawn.Add(point);
         }
     }
 
-    // 2. On instancie APRÈS la boucle foreach
     foreach (Transform point in pointsToSpawn)
     {
         int randomBoxIndex = Random.Range(0, boxesPrefabs.Length);
@@ -77,13 +77,13 @@ public void UpdateSpawnBox()
             point.rotation
         );
 
-        // Marquer comme occupé
         spawnPoints[point] = true;
 
-        // Ajouter le point d’origine dans la box
         HapticGrabbable hg = box.GetComponent<HapticGrabbable>();
         if (hg != null)
-            hg.mySpawnPoint = point;
+            {
+                hg.mySpawnPoint = point;
+            }
     }
 }
 

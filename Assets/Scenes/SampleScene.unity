@@ -906,7 +906,7 @@ MonoBehaviour:
   health: 100
   maxHealth: 100
   hadGilet: 0
-  giletDiminutionFactor: 0.25
+  giletDiminutionFactor: 0.3
   curStamina: 100
   maxStamina: 100
   maxBattery: 100
@@ -2554,6 +2554,8 @@ MonoBehaviour:
   - {fileID: 5342523091512942634, guid: 5eaabfa34577ace479e3ad6e42ab6a4b, type: 3}
   - {fileID: 3057709031820945997, guid: 97ff34d8d4d22dd49a18665f324ebf84, type: 3}
   - {fileID: 5024264196034011491, guid: 98e9c14877c013b41bd694991167f610, type: 3}
+  rightHand: {fileID: 1705203789}
+  leftHand: {fileID: 418482340}
 --- !u!1 &1295047429 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 100004, guid: ce816f2e6abb0504092c23ed9b970dfd, type: 3}

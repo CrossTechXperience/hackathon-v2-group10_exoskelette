@@ -1,5 +1,4 @@
 using UnityEngine;
-using Bhaptics.SDK2;
 using System.Collections;
 
 public class HapticGrabbable : OVRGrabbable
@@ -29,7 +28,6 @@ public class HapticGrabbable : OVRGrabbable
         {
             t = timer;
 
-            BhapticsLibrary.Play("douleur", 0, intensity);
             PlayerStat.instance.TakeDamage(intensity);
         }
         else
@@ -40,6 +38,9 @@ public class HapticGrabbable : OVRGrabbable
 
     public override void GrabBegin(OVRGrabber hand, Collider grabPoint)
     {
+        if (grabPoint == null || hand == null)
+            return;
+
         base.GrabBegin(hand, grabPoint);
         isGrabbledNow = true;
         PlayerStat.instance.grabbing = true;
@@ -65,18 +66,17 @@ public class HapticGrabbable : OVRGrabbable
         }
     }
 
-IEnumerator DestroyAfterRelease()
-{
-    if (m_grabbedBy != null)
+    IEnumerator DestroyAfterRelease()
     {
-        m_grabbedBy.ForceRelease(this);
+        if (m_grabbedBy != null)
+        {
+            m_grabbedBy.ForceRelease(this);
+        }
+
+        gameObject.SetActive(false);
+
+        yield return null;
+
+        Destroy(gameObject);
     }
-
-    gameObject.SetActive(false);
-
-    yield return null;
-
-    Destroy(gameObject);
-}
-
 }

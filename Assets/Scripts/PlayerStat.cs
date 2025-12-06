@@ -1,6 +1,6 @@
-using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using Bhaptics.SDK2;
 
 public class PlayerStat : MonoBehaviour
 {
@@ -41,7 +41,10 @@ public class PlayerStat : MonoBehaviour
         healthImage.color = hadGilet ? Color.gray : Color.red;
         shiedIcon.gameObject.SetActive(hadGilet);
 
-        GetComponent<OVRPlayerController>().enabled = curStamina > 0.0f;
+        OVRPlayerController pc = GetComponent<OVRPlayerController>();
+        pc.EnableLinearMovement = curStamina > 0.0f;
+
+        Debug.Log(curStamina > 0.0f);
 
         if(!grabbing && curStamina < maxStamina)
         {
@@ -100,6 +103,9 @@ public class PlayerStat : MonoBehaviour
         curStamina -= damage * 10.0f;
 
         Debug.Log("Player took damage: " + damage + ", current health: " + health);
+
+
+        BhapticsLibrary.Play("douleur", 0, damage);
 
         if (health < 0.0f)
         {
