@@ -1,5 +1,6 @@
 using UnityEngine;
 using Bhaptics.SDK2;
+using System.Collections;
 
 public class HapticGrabbable : OVRGrabbable
 {
@@ -11,6 +12,8 @@ public class HapticGrabbable : OVRGrabbable
     float timer = 0.5f;
 
     [SerializeField] GameObject deliveryEffect;
+
+        public Transform mySpawnPoint;
 
     void Start()
     {
@@ -51,11 +54,29 @@ public class HapticGrabbable : OVRGrabbable
 
     public void OnTriggerEnter(Collider other)
     {
-        if(other.CompareTag("DeliveryArea"))
+        if(other.CompareTag("DeliveryArea") && !isGrabbledNow)
         {
             PlayerStat.instance.AddHealth(intensity * 15);
-
-            Destroy(gameObject);
+            
+            SpawnBox.instance.SetSpawnPointFree(mySpawnPoint, false);
+            SpawnBox.instance.UpdateSpawnBox();
+            GameManager.instance.AddBoxDelivered();
+            StartCoroutine(DestroyAfterRelease());
         }
     }
+
+IEnumerator DestroyAfterRelease()
+{
+    if (m_grabbedBy != null)
+    {
+        m_grabbedBy.ForceRelease(this);
+    }
+
+    gameObject.SetActive(false);
+
+    yield return null;
+
+    Destroy(gameObject);
+}
+
 }

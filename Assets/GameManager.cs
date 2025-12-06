@@ -22,6 +22,7 @@ public class GameManager : MonoBehaviour
     public Text boxHasToDeliveryText;
     public Text boxDeliveredText;
 
+
     private void Awake()
     {
         instance = this;
@@ -73,6 +74,8 @@ public class GameManager : MonoBehaviour
     public void AddBoxDelivered()
     {
         boxDelivered++;
+
+
         if(boxDelivered == boxHasToDelivery)
         {
             EndOfDay();
