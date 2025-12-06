@@ -1,0 +1,16 @@
+fileFormatVersion: 2
+guid: 3f10605e1b0fcde44865d33b40e09a47
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - BoxSmallPrefab: {fileID: 919132149155446097, guid: 65d63c1c385aa044a963c487d644cb4f, type: 3}
+  - BoxMediumPrefab: {fileID: 919132149155446097, guid: 5f9dcde11a6cc104a88aae5153210f0d, type: 3}
+  - BoxLargePrefab: {fileID: 919132149155446097, guid: 327efce85c6f70e4a9ec725b1ac48669, type: 3}
+  - BoxExtraLargePrefab: {fileID: 919132149155446097, guid: 18fdb4eee612a2c4cad5760dcc6a7e93, type: 3}
+  - SpawnPoint: {instanceID: 0}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
