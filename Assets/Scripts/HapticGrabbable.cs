@@ -38,6 +38,9 @@ public class HapticGrabbable : OVRGrabbable
 
     public override void GrabBegin(OVRGrabber hand, Collider grabPoint)
     {
+        if (m_grabbedBy != null)
+            return;
+
         if (grabPoint == null || hand == null)
             return;
 
@@ -45,6 +48,7 @@ public class HapticGrabbable : OVRGrabbable
         isGrabbledNow = true;
         PlayerStat.instance.grabbing = true;
     }
+
 
     public override void GrabEnd(Vector3 linearVelocity, Vector3 angularVelocity)
     {
@@ -66,17 +70,15 @@ public class HapticGrabbable : OVRGrabbable
         }
     }
 
-    IEnumerator DestroyAfterRelease()
-    {
-        if (m_grabbedBy != null)
-        {
-            m_grabbedBy.ForceRelease(this);
-        }
+IEnumerator DestroyAfterRelease()
+{
+    if (m_grabbedBy != null)
+        m_grabbedBy.ForceRelease(this); // libère l'objet proprement
 
-        gameObject.SetActive(false);
+    yield return new WaitForEndOfFrame(); // attendre la fin de la frame
+    gameObject.SetActive(false);
+    yield return null;
+    Destroy(gameObject);
+}
 
-        yield return null;
-
-        Destroy(gameObject);
-    }
 }
