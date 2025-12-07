@@ -37,12 +37,28 @@ public class PlayerStat : MonoBehaviour
     [SerializeField] private Transform arrowToDeliveryPoint;
     [SerializeField] private Transform deliveryPoint;
 
+    [Header("Speed")]
+    [SerializeField] private float normalSpeed = 0.2f;
+    [SerializeField] private float speed;
+
     private void Awake() {
         instance = this;
     }
 
+    void Start()
+    {
+        SetUpSeeed(normalSpeed);
+    }
+
+    public void SetUpSeeed(float value)
+    {
+        speed = value;
+    }
+
     void Update()
     {
+        GetComponent<OVRPlayerController>().Acceleration = speed;
+
         healthImage.fillAmount = health / maxHealth;
         staminaBar.fillAmount = curStamina / maxStamina;
         batteryBar.fillAmount = curBattery / maxBattery;

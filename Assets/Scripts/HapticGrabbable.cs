@@ -4,6 +4,7 @@ using System.Collections;
 public class HapticGrabbable : OVRGrabbable
 {
     public float intensity = 1.0f;
+    public float speedWhenGrabbled = 0.2f;
 
     public bool isGrabbledNow = false;
 
@@ -51,6 +52,7 @@ public class HapticGrabbable : OVRGrabbable
         if(cantLeveWithoutArmor && !PlayerStat.instance.hadGilet)
         {
             canGrab = false;
+            isGrabbledNow = true;
             PlayerStat.instance.grabbing = true;
         }
 
@@ -61,6 +63,8 @@ public class HapticGrabbable : OVRGrabbable
             m_grabbedBy.ForceRelease(this);
             return;
         }
+
+        PlayerStat.instance.SetUpSeeed(speedWhenGrabbled);
 
         isGrabbledNow = true;
         PlayerStat.instance.grabbing = true;
