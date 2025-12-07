@@ -156,6 +156,7 @@ MonoBehaviour:
   m_snapOffset: {fileID: 0}
   m_grabPoints: []
   intensity: 0.3
+  speedWhenGrabbled: 0.15
   isGrabbledNow: 0
   cantLeveWithoutArmor: 0
   deliveryEffect: {fileID: 141433446842962269, guid: 9fe8f8b3288e45a44af36ff8aa04486e, type: 3}
