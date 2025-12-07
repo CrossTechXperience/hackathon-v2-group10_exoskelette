@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 1435227804878956032}
   - component: {fileID: 7529705167484294035}
   - component: {fileID: 8024588462935067069}
+  - component: {fileID: -6977681015316302160}
   m_Layer: 0
   m_Name: PetiteBoite
   m_TagString: Box
@@ -156,4 +157,24 @@ MonoBehaviour:
   m_grabPoints: []
   intensity: 0.3
   isGrabbledNow: 0
+  cantLeveWithoutArmor: 0
   deliveryEffect: {fileID: 141433446842962269, guid: 9fe8f8b3288e45a44af36ff8aa04486e, type: 3}
+  mySpawnPoint: {fileID: 0}
+--- !u!114 &-6977681015316302160
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3057709031820945997}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  outlineMode: 0
+  outlineColor: {r: 1, g: 1, b: 1, a: 1}
+  outlineWidth: 8
+  precomputeOutline: 0
+  bakeKeys: []
+  bakeValues: []
