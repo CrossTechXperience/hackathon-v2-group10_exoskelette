@@ -34,6 +34,9 @@ public class PlayerStat : MonoBehaviour
     [SerializeField] private float staminaRessourceRate = 10f;
     [SerializeField] private float damageMultiplier = 2.5f;
 
+    [SerializeField] private Transform arrowToDeliveryPoint;
+    [SerializeField] private Transform deliveryPoint;
+
     private void Awake() {
         instance = this;
     }
@@ -49,6 +52,13 @@ public class PlayerStat : MonoBehaviour
 
         OVRPlayerController pc = GetComponent<OVRPlayerController>();
         pc.EnableLinearMovement = curStamina > 0.0f;
+
+        arrowToDeliveryPoint.gameObject.SetActive(grabbing);
+
+        if(grabbing)
+        {
+            arrowToDeliveryPoint.LookAt(deliveryPoint);
+        }
 
         if(!grabbing && curStamina < maxStamina)
         {
