@@ -10,13 +10,16 @@ public class HapticGrabbable : OVRGrabbable
     float t = 0f;
     float timer = 0.5f;
 
+    public bool cantLeveWithoutArmor = false;
+
     [SerializeField] GameObject deliveryEffect;
 
-        public Transform mySpawnPoint;
+    public Transform mySpawnPoint;
 
     void Start()
     {
         t = timer;
+        gameObject.GetComponent<Outline>().enabled = false;
     }
 
     void Update()
@@ -44,10 +47,25 @@ public class HapticGrabbable : OVRGrabbable
         if (grabPoint == null || hand == null)
             return;
 
+        bool canGrab = true;
+        if(cantLeveWithoutArmor && !PlayerStat.instance.hadGilet)
+        {
+            canGrab = false;
+            PlayerStat.instance.grabbing = true;
+        }
+
         base.GrabBegin(hand, grabPoint);
+
+        if (!canGrab)
+        {
+            m_grabbedBy.ForceRelease(this);
+            return;
+        }
+
         isGrabbledNow = true;
         PlayerStat.instance.grabbing = true;
     }
+
 
 
     public override void GrabEnd(Vector3 linearVelocity, Vector3 angularVelocity)
@@ -60,25 +78,41 @@ public class HapticGrabbable : OVRGrabbable
     public void OnTriggerEnter(Collider other)
     {
         if(other.CompareTag("DeliveryArea") && !isGrabbledNow)
-        {
-            PlayerStat.instance.AddHealth(intensity * 15);
-            
+        {            
             SpawnBox.instance.SetSpawnPointFree(mySpawnPoint, false);
             SpawnBox.instance.UpdateSpawnBox();
             GameManager.instance.AddBoxDelivered();
             StartCoroutine(DestroyAfterRelease());
         }
+
+        if(other.gameObject.GetComponent<OVRGrabber>() != null)
+        {
+            gameObject.GetComponent<Outline>().enabled = true;
+        }
+    }
+
+    public void OnTriggerExit (Collider other) 
+    {
+        if(other.gameObject.GetComponent<OVRGrabber>() != null)
+        {
+            gameObject.GetComponent<Outline>().enabled = false;
+        }   
     }
 
 IEnumerator DestroyAfterRelease()
 {
     if (m_grabbedBy != null)
-        m_grabbedBy.ForceRelease(this); // libère l'objet proprement
+    {
+        m_grabbedBy.ForceRelease(this);
+        m_grabbedBy = null; 
+    }
 
-    yield return new WaitForEndOfFrame(); // attendre la fin de la frame
     gameObject.SetActive(false);
+
     yield return null;
-    Destroy(gameObject);
+
+    //Destroy(gameObject);
 }
+
 
 }

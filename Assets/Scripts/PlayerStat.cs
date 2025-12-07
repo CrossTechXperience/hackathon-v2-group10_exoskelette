@@ -28,6 +28,12 @@ public class PlayerStat : MonoBehaviour
     [SerializeField] private Image shiedIcon;
     public bool grabbing;
 
+    [SerializeField] private float batteryDrainRate = 5.0f;
+
+    [SerializeField] private float staminaDrainRate = 10f;
+    [SerializeField] private float staminaRessourceRate = 10f;
+    [SerializeField] private float damageMultiplier = 2.5f;
+
     private void Awake() {
         instance = this;
     }
@@ -44,11 +50,9 @@ public class PlayerStat : MonoBehaviour
         OVRPlayerController pc = GetComponent<OVRPlayerController>();
         pc.EnableLinearMovement = curStamina > 0.0f;
 
-        Debug.Log(curStamina > 0.0f);
-
         if(!grabbing && curStamina < maxStamina)
         {
-            curStamina += Time.deltaTime * 10.0f;
+            curStamina += Time.deltaTime * staminaDrainRate;
             if(curStamina > maxStamina)
             {
                 curStamina = maxStamina;
@@ -57,7 +61,7 @@ public class PlayerStat : MonoBehaviour
 
         if(hadGilet)
         {
-            curBattery -= Time.deltaTime * 5.0f;
+            curBattery -= Time.deltaTime * batteryDrainRate;
             if(curBattery < 0.0f)
             {
                 curBattery = 0.0f;
@@ -99,8 +103,8 @@ public class PlayerStat : MonoBehaviour
             damage *= giletDiminutionFactor;
         }
 
-        health -= damage;
-        curStamina -= damage * 10.0f;
+        health -= damage*damageMultiplier;
+        curStamina -= damage * staminaRessourceRate;
 
         Debug.Log("Player took damage: " + damage + ", current health: " + health);
 

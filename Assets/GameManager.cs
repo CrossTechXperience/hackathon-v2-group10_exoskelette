@@ -51,7 +51,6 @@ public class GameManager : MonoBehaviour
         {
             if(t < 0)
             {
-                t = timerDay;
                 EndOfDay();
             }
             else
@@ -97,6 +96,7 @@ public class GameManager : MonoBehaviour
         PlayerStat.instance.GetComponent<OVRPlayerController>().enabled = true;
         PlayerStat.instance.enabled = true;
         PlayerStat.instance.ResetStat();
+        t = timerDay;
         endOfDay = false;
     }
 
